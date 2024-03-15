@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,133 +10,109 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          title: Text(
-            "Movie Reviews",
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                print('My page button pressed');
-              },
-              icon: Icon(
-                Icons.person,
-                color: Color.fromARGB(255, 0, 0, 0),
-                size: 30.0,
-              ),
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              children: [
-                _buildSearchBar(),
-                _buildMovieList(),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSearchBar() {
-    return Container(
-      width: 355,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black, // Set the border color
-          width: 1.0, // Set the border width
-        ),
-        borderRadius: BorderRadius.circular(4.0), // Set border radius
-      ),
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: "  영화 제목을 검색해주세요 🩵",
-          suffixIcon: Icon(Icons.search),
-          border: InputBorder.none, // Remove TextField border
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMovieList() {
-    // Sample movie data
-    List<Map<String, dynamic>> dataList = [
-      {
-        "category": "탑건: 매버릭",
-        "imgUrl": "https://i.ibb.co/sR32PN3/topgun.jpg",
-      },
-      {
-        "category": "마녀2",
-        "imgUrl": "https://i.ibb.co/CKMrv91/The-Witch.jpg",
-      },
-      {
-        "category": "범죄도시2",
-        "imgUrl": "https://i.ibb.co/2czdVdm/The-Outlaws.jpg",
-      },
-      {
-        "category": "헤어질 결심",
-        "imgUrl": "https://i.ibb.co/gM394CV/Decision-to-Leave.jpg",
-      },
-      {
-        "category": "브로커",
-        "imgUrl": "https://i.ibb.co/MSy1XNB/broker.jpg",
-      },
-      {
-        "category": "문폴",
-        "imgUrl": "https://i.ibb.co/4JYHHtc/Moonfall.jpg",
-      },
-    ];
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: dataList.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Stack(
-            alignment: Alignment.center,
-            children: [
-              Image.network(
-                dataList[index]["imgUrl"],
-                width: 450,
-                height: 175,
-                fit: BoxFit.cover,
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                child: Container(
-                  width: 450,
-                  height: 175,
-                  color: Colors.black.withOpacity(0.5),
-                  padding: EdgeInsets.all(60.0),
-                  child: Text(
-                    dataList[index]["category"],
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+      home: HomePage(),
     );
   }
 }
-//done
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 2.5,
+        leading: Row(
+          children: [
+            SizedBox(width: 16),
+            Text(
+              '논현동',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: Colors.black,
+            ),
+          ],
+        ),
+        leadingWidth: 100,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(CupertinoIcons.search, color: Colors.black),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.menu_rounded, color: Colors.black),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(CupertinoIcons.bell, color: Colors.black),
+          ),
+        ],
+      ),
+      body: Row(
+        children: [
+          // ClipRRect 를 통해 이미지에 곡선 border 생성
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            // 이미지
+            child: Image.network(
+              'https://cdn2.thecatapi.com/images/6bt.jpg',
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Text(
+                  'M1 아이패드 프로 11형(3세대) 와이파이 128G 팝니다.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                  softWrap: false,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: 2),
+                Text(
+                  '봉천동 · 6분 전',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.black45,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  '100만원',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  children: [
+                    // 빈 칸
+                    // 하트 아이콘
+                    // '1'
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
